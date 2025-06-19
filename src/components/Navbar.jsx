@@ -27,7 +27,7 @@ export default function Navbar() {
         {/* Logo */}
         <a href="#hero" className="text-2xl font-bold tracking-tight z-50">
           <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-            Simplora
+            Simplora Consulting
           </span>
           <span className="text-gray-900">.</span>
         </a>

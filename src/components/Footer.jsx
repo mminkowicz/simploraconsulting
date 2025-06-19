@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
         {/* Brand */}
         <div>
-          <h2 className="text-2xl font-bold text-blue-600 mb-2">Simplora</h2>
+          <h2 className="text-2xl font-bold text-blue-600 mb-2">Simplora Consulting</h2>
           <p className="text-gray-500 text-sm">
             Simplifying your business systems — one integration at a time.
           </p>

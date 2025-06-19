@@ -71,9 +71,9 @@ const platforms = [
 
 export default function Services() {
   return (
-    <section className="py-24 bg-white" id="services">
+    <section className="py-28 bg-white" id="services">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -81,15 +81,15 @@ export default function Services() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Core Services
           </h2>
-          <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto">
-            Comprehensive solutions to transform your business technology into a competitive advantage.
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            We help businesses simplify and scale by managing, customizing, integrating, and implementing their systems.
           </p>
         </motion.div>
 
-        {/* Service Cards */}
+        {/* Services Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, i) => (
             <motion.div
@@ -99,16 +99,14 @@ export default function Services() {
               transition={{ duration: 0.6, delay: i * 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="h-full group rounded-2xl bg-gradient-to-br from-white to-gray-50 shadow-md hover:shadow-xl p-6 sm:p-8 transition-all duration-500 hover:-translate-y-1">
-                <div
-                  className={`w-14 h-14 sm:w-16 sm:h-16 mb-6 rounded-2xl bg-gradient-to-r ${service.gradient} flex items-center justify-center group-hover:scale-105 transition-transform duration-300`}
-                >
-                  <service.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+              <div className="h-full group rounded-2xl bg-gradient-to-br from-white to-gray-50 shadow hover:shadow-xl p-6 sm:p-8 transition-all duration-500 hover:-translate-y-1">
+                <div className={`w-16 h-16 mb-6 rounded-2xl bg-gradient-to-r ${service.gradient} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+                  <service.icon className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
                   {service.title}
                 </h3>
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed text-base">
                   {service.description}
                 </p>
               </div>
@@ -116,15 +114,15 @@ export default function Services() {
           ))}
         </div>
 
-        {/* Platforms */}
+        {/* Platform Logos */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
           viewport={{ once: true }}
-          className="mt-20 text-center"
+          className="mt-24 text-center"
         >
-          <p className="text-sm font-semibold text-gray-500 tracking-wider uppercase mb-6">
+          <p className="text-sm font-semibold text-gray-500 tracking-widest uppercase mb-6">
             Platforms We Work With
           </p>
           <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-6">
@@ -133,7 +131,7 @@ export default function Services() {
                 key={platform.name}
                 src={platform.src}
                 alt={platform.name}
-                className="h-7 sm:h-8 w-auto grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                className="h-12 w-auto max-w-[130px] object-contain opacity-80 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300"
               />
             ))}
           </div>
