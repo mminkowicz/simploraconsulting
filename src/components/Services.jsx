@@ -131,7 +131,7 @@ export default function Services() {
                 key={platform.name}
                 src={platform.src}
                 alt={platform.name}
-                className="h-12 w-auto max-w-[130px] object-contain opacity-80 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300"
+                className="h-15 w-auto max-w-[130px] object-contain opacity-80  hover:opacity-100 hover:grayscale-0 transition-all duration-300"
               />
             ))}
           </div>

@@ -100,7 +100,7 @@ export default function ClientsAndTestimonials() {
                 src={client.logo}
                 alt={client.name}
                 ref={(el) => (logoRefs.current[i] = el)}
-                className="h-7 sm:h-8 w-auto grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                className="h-7 sm:h-8 w-auto opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
               />
             ))}
           </motion.div>

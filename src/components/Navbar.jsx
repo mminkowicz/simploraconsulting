@@ -1,8 +1,12 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import gsap from 'gsap';
+import { useEffect, useRef, useState } from "react";
+import { Menu, X } from "lucide-react";
+import gsap from "gsap";
+
+// ⬇️ 1) Drop your logo file in /src/assets (e.g. logo.svg or logo.png)
+// ⬇️ 2) Update the path/filename below if it lives somewhere else
+import logo from "../assets/logo.svg";
 
 export default function Navbar() {
   const navRef = useRef(null);
@@ -12,11 +16,11 @@ export default function Navbar() {
     gsap.fromTo(
       navRef.current,
       { y: -60, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' }
+      { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }
     );
   }, []);
 
-  const navLinks = ['services', 'features', 'clients', 'contact'];
+  const navLinks = ["services", "features", "clients", "contact"];
 
   return (
     <header
@@ -25,11 +29,12 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <a href="#hero" className="text-2xl font-bold tracking-tight z-50">
-          <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-            Simplora Consulting
-          </span>
-          <span className="text-gray-900">.</span>
+        <a href="#hero" className="flex items-center z-50">
+          <img
+            src={logo}
+            alt="Simplora Consulting logo"
+            className="h-10 md:h-12 w-auto select-none"
+          />
         </a>
 
         {/* Desktop Nav */}
@@ -60,14 +65,18 @@ export default function Navbar() {
           className="md:hidden z-50"
           aria-label="Toggle Menu"
         >
-          {menuOpen ? <X className="w-6 h-6 text-gray-900" /> : <Menu className="w-6 h-6 text-gray-900" />}
+          {menuOpen ? (
+            <X className="w-6 h-6 text-gray-900" />
+          ) : (
+            <Menu className="w-6 h-6 text-gray-900" />
+          )}
         </button>
       </div>
 
       {/* Mobile Drawer Menu */}
       <div
         className={`md:hidden fixed top-0 right-0 w-full h-screen bg-white bg-opacity-95 backdrop-blur-sm transform transition-transform duration-300 ease-in-out ${
-          menuOpen ? 'translate-x-0' : 'translate-x-full'
+          menuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="flex flex-col items-center justify-center h-full space-y-8 text-lg font-semibold text-gray-800">
