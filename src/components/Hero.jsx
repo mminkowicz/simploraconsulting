@@ -29,16 +29,16 @@ export default function Hero() {
     <section
       id="hero"
       ref={heroRef}
-      className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-blue-50 to-blue-100 px-4 sm:px-6 md:px-10 pt-32 pb-20 text-center overflow-hidden"
+      className="relative w-full min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-white via-blue-50 to-blue-100 px-4 sm:px-6 md:px-10 pt-32 pb-20 text-center overflow-hidden"
     >
       <div className="max-w-4xl mx-auto">
         <h1
           ref={headlineRef}
-          className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight"
+          className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight break-words"
         >
-          We simplify your business systems —
-          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 mt-2">
-            so you can focus on growth.
+          Your systems. Our responsibility.
+          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 mt-2 break-words leading-snug">
+            Customized. Automated. Integrated. Managed.
           </span>
         </h1>
 
@@ -46,7 +46,7 @@ export default function Hero() {
           ref={subRef}
           className="mt-6 text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto"
         >
-          Automations, integrations, CRM optimization, and expert implementation — all in one place.
+          From data chaos to platform overload — we simplify, optimize, and take ownership of the systems your business depends on.
         </p>
 
         <div ref={buttonRef} className="mt-10">
@@ -58,6 +58,15 @@ export default function Hero() {
           </a>
         </div>
       </div>
+
+      <div className="mt-16 text-center max-w-3xl mx-auto">
+  <p className="text-lg sm:text-xl font-semibold text-gray-800">
+    You focus on your mission.
+  </p>
+  <p className="mt-2 text-sm sm:text-base text-gray-600">
+    We’ll handle the tools, tech, and systems that power it — so everything behind the scenes runs exactly how it should.
+  </p>
+</div>
 
       {/* Background Visuals */}
       <div className="absolute top-[-80px] left-[-60px] w-80 h-80 sm:w-96 sm:h-96 bg-cyan-400 opacity-20 blur-3xl rounded-full pointer-events-none" />
