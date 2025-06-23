@@ -18,44 +18,44 @@ import pipedrive from '../assets/platforms/pipedrive logo.png';
 
 const services = [
   {
-    title: 'System Management',
+    title: 'Management & Support',
     description:
-      'Ongoing support and updates for platforms like Salesforce, HubSpot, Monday, and more.',
+      'We don’t just set it up and walk away. We manage, maintain, and oversee your systems daily — ensuring updates are applied, users are supported, issues are resolved quickly, and everything runs at peak performance.',
     icon: FaTools,
     gradient: 'from-blue-500 to-cyan-500',
   },
   {
     title: 'Customization',
     description:
-      'Tailored fields, workflows, and automation built for how your team actually operates.',
+      'We tailor your systems to match your exact needs — from custom fields, objects, modules, dashboards, and page layouts to user roles, security permissions, and approval processes. Whether you need a completely new setup or refining what you already have, we make your platform work your way.',
     icon: FaCogs,
     gradient: 'from-purple-500 to-indigo-500',
   },
   {
     title: 'Integrations',
     description:
-      'Connect your forms, email, calendars, CRMs, and tools into one seamless system.',
+      'Connect the tools your business relies on. We integrate your systems with third-party apps like Make, Zapier, Google Workspace, Mailchimp, QuickBooks, and more — creating a seamless ecosystem where data flows automatically and everything works together effortlessly.',
     icon: FaPlug,
     gradient: 'from-pink-500 to-red-400',
   },
   {
-    title: 'Implementation',
+    title: ' Advisory & Strategy',
     description:
-      'We handle setup, migration, onboarding, and launch — done fast and done right.',
+      'We’re more than just implementers — we’re strategic partners. We help you choose the right tools, map out your tech stack, and align your systems with your business goals to drive real, long-term growth.',
     icon: FaRocket,
     gradient: 'from-green-500 to-emerald-400',
   },
   {
     title: 'Automation',
     description:
-      'Reminders, sequences, drip flows, and triggers to keep everything moving automatically.',
+      'Say goodbye to repetitive tasks. We design powerful automations and intelligent workflows tailored to your unique processes — no matter how simple or complex. From task triggers and status updates to multi-step logic and cross-platform actions, we help your systems run smoothly, efficiently, and hands-free.',
     icon: FaSyncAlt,
     gradient: 'from-yellow-400 to-orange-400',
   },
   {
     title: 'Data Services',
     description:
-      'Cleanup, deduplication, segmentation, imports, exports, and list logic done cleanly.',
+      'We clean, import, and export your data with precision. From deduplication and formatting to structuring and segmenting, we ensure your database is accurate, reliable, and ready for action — because clean data = better decisions.',
     icon: FaDatabase,
     gradient: 'from-teal-500 to-blue-400',
   },
