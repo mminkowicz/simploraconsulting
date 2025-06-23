@@ -4,13 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import gsap from "gsap";
 
-// ⬇️ 1) Drop your logo file in /src/assets (e.g. logo.svg or logo.png)
-// ⬇️ 2) Update the path/filename below if it lives somewhere else
-import logo from "../assets/logo.svg";
+import logo from "../assets/logo.ai.png";
 
 export default function Navbar() {
   const navRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const navLinks = ["Services", "Features", "Clients", "Contact"];
 
   useEffect(() => {
     gsap.fromTo(
@@ -20,85 +20,73 @@ export default function Navbar() {
     );
   }, []);
 
-  const navLinks = ["services", "features", "clients", "contact"];
-
   return (
     <header
       ref={navRef}
-      className="fixed top-0 left-0 w-full z-50 bg-white/70 backdrop-blur-md border-b border-gray-200 shadow-sm"
+      className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-transparent px-6 py-4"
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
-        <a href="#hero" className="flex items-center z-50">
-          <img
-            src={logo}
-            alt="Simplora Consulting logo"
-            className="h-10 md:h-12 w-auto select-none"
-          />
+        <a href="#hero" className="flex items-center">
+          <img src={logo} alt="Optamyze logo" className="h-10 w-auto" />
         </a>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex space-x-8 text-sm font-medium text-gray-700">
-          {navLinks.map((id) => (
+        <nav className="hidden md:flex items-center space-x-10 text-sm font-medium text-neutral-800 dark:text-neutral-200">
+          {navLinks.map((label) => (
             <a
-              key={id}
-              href={`#${id}`}
-              className="relative group hover:text-blue-600 transition"
+              key={label}
+              href={`#${label.toLowerCase()}`}
+              className="hover:text-blue-600 transition"
             >
-              <span className="capitalize">{id}</span>
-              <span className="absolute left-0 bottom-[-2px] w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-500 transition-all duration-300 group-hover:w-full" />
+              {label}
             </a>
           ))}
         </nav>
 
-        {/* Desktop CTA */}
-        <a
-          href="#contact"
-          className="hidden md:inline-block px-5 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow hover:brightness-110 transition"
-        >
-          Book a Call
-        </a>
+        {/* Actions */}
+        <div className="flex items-center space-x-4">
+          {/* Call to Action */}
+          <a
+            href="#contact"
+            className="hidden md:inline-block px-5 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow hover:brightness-110 transition"
+          >
+            Book a Call
+          </a>
 
-        {/* Mobile Menu Toggle */}
-        <button
-          onClick={() => setMenuOpen((prev) => !prev)}
-          className="md:hidden z-50"
-          aria-label="Toggle Menu"
-        >
-          {menuOpen ? (
-            <X className="w-6 h-6 text-gray-900" />
-          ) : (
-            <Menu className="w-6 h-6 text-gray-900" />
-          )}
-        </button>
+          {/* Mobile Menu */}
+          <button
+            onClick={() => setMenuOpen((prev) => !prev)}
+            className="md:hidden"
+            aria-label="Toggle Menu"
+          >
+            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
-      <div
-        className={`md:hidden fixed top-0 right-0 w-full h-screen bg-white bg-opacity-95 backdrop-blur-sm transform transition-transform duration-300 ease-in-out ${
-          menuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="flex flex-col items-center justify-center h-full space-y-8 text-lg font-semibold text-gray-800">
-          {navLinks.map((id) => (
+      {/* Mobile Nav Drawer */}
+      {menuOpen && (
+        <div className="md:hidden fixed top-0 right-0 w-full h-screen bg-white dark:bg-black bg-opacity-90 backdrop-blur-md z-40 flex flex-col items-center justify-center space-y-8 text-lg font-semibold text-neutral-800 dark:text-neutral-100">
+          {navLinks.map((label) => (
             <a
-              key={id}
-              href={`#${id}`}
+              key={label}
+              href={`#${label.toLowerCase()}`}
               onClick={() => setMenuOpen(false)}
-              className="capitalize hover:text-blue-600 transition"
+              className="hover:text-blue-600 transition"
             >
-              {id}
+              {label}
             </a>
           ))}
           <a
             href="#contact"
             onClick={() => setMenuOpen(false)}
-            className="mt-4 px-6 py-3 rounded-full text-white bg-gradient-to-r from-blue-600 to-cyan-500 shadow hover:brightness-110 transition"
+            className="mt-4 px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow hover:brightness-110 transition"
           >
             Book a Call
           </a>
         </div>
-      </div>
+      )}
     </header>
   );
 }

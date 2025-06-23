@@ -12,7 +12,7 @@ export default function CTA() {
           Book a free consultation and let’s transform your systems into seamless success.
         </p>
         <a
-          href="https://calendar.app.google/BYvoopidMCTQkwJn6"
+          href="https://calendar.app.google/7JhbHhJhNG9fHj849"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block bg-white text-blue-700 font-semibold px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg shadow-lg hover:bg-blue-100 transition"
