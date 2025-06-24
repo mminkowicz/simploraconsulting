@@ -1,4 +1,6 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
@@ -6,17 +8,35 @@ import Transformation from './components/Transformation';
 import Testimonials from './components/Testimonials';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
+import About from './pages/About';      // ← make sure this file exists
+import ServicesPage from './pages/Services';
+// (Removed the broken import for ./pages/Home)
 
-function App() {
+function HomePage() {
   return (
-    <div className="font-sans bg-white text-gray-900">
-      <Navbar />
+    <>
       <Hero />
       <Services />
       <Transformation />
       <Testimonials />
       <CTA />
-      <Footer />
+    </>
+  );
+}
+
+function App() {
+  return (
+    <div className="font-sans bg-white text-gray-900">
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/services/:serviceId" element={<ServicesPage />} />
+        </Routes>
+        <Footer />
+      </Router>
     </div>
   );
 }

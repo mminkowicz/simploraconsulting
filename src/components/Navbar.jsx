@@ -2,89 +2,142 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
-import gsap from "gsap";
-
-import logo from "../assets/logo.ai.png";
+import { Link } from "react-router-dom";
+import gsap from "gsap";           // ← keep GSAP
 
 export default function Navbar() {
   const navRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const navLinks = ["Services", "Features", "Clients", "Contact"];
-
+  /* slide-down on mount */
   useEffect(() => {
     gsap.fromTo(
       navRef.current,
-      { y: -60, opacity: 0 },
+      { y: -70, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }
     );
   }, []);
 
-  return (
-    <header
-      ref={navRef}
-      className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-transparent px-6 py-4"
-    >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Logo */}
-        <a href="#hero" className="flex items-center">
-          <img src={logo} alt="Optamyze logo" className="h-10 w-auto" />
-        </a>
+  /* add blur + border when scrolled */
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 8);
+    handler();
+    window.addEventListener("scroll", handler);
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center space-x-10 text-sm font-medium text-neutral-800 dark:text-neutral-200">
-          {navLinks.map((label) => (
-            <a
-              key={label}
-              href={`#${label.toLowerCase()}`}
-              className="hover:text-blue-600 transition"
-            >
-              {label}
-            </a>
-          ))}
+  const headerClasses = [
+    "fixed top-0 left-0 w-full z-50 transition-all duration-300",
+    scrolled
+      ? "backdrop-blur-md bg-white/85 dark:bg-neutral-900/70 border-b border-black/10 dark:border-white/10 shadow-sm"
+      : "bg-transparent",
+  ].join(" ");
+
+  const navLinks = [
+    { label: "Home", href: "/", internal: true },
+    { label: "Services", href: "/services", internal: true },
+    { label: "About", href: "/about", internal: true },
+    { label: "Contact", href: "#contact" },
+  ];
+
+  return (
+    <header ref={navRef} className={headerClasses}>
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+        {/* Logo — now served straight from /public */}
+        <Link to="/" className="flex items-center gap-2">
+          <img
+            src="/logo.svg"            /* ⬅️ just reference the public file */
+            alt="Simplora logo"
+            className="h-20 md:h-28 lg:h-32 w-auto"
+          />
+        </Link>
+
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-10 text-sm font-medium">
+          {navLinks.map(({ label, href, internal }) =>
+            internal ? (
+              <Link
+                key={label}
+                to={href}
+                className="text-neutral-800 dark:text-neutral-200 hover:text-blue-600 transition"
+              >
+                {label}
+              </Link>
+            ) : (
+              <a
+                key={label}
+                href={href}
+                className="text-neutral-800 dark:text-neutral-200 hover:text-blue-600 transition"
+              >
+                {label}
+              </a>
+            )
+          )}
+          <a
+            href="https://calendar.app.google/7JhbHhJhNG9fHj849"
+            className="inline-flex items-center px-5 py-2 rounded-full font-semibold bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg hover:brightness-110 transition"
+          >
+            Book a Call
+          </a>
         </nav>
 
-        {/* Actions */}
-        <div className="flex items-center space-x-4">
-          {/* Call to Action */}
-          <a
-            href="#contact"
-            className="hidden md:inline-block px-5 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow hover:brightness-110 transition"
-          >
-            Book a Call
-          </a>
-
-          {/* Mobile Menu */}
-          <button
-            onClick={() => setMenuOpen((prev) => !prev)}
-            className="md:hidden"
-            aria-label="Toggle Menu"
-          >
-            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
+        {/* Mobile burger */}
+        <button
+          onClick={() => setMenuOpen(true)}
+          className="md:hidden text-neutral-800 dark:text-neutral-100"
+          aria-label="Open menu"
+        >
+          <Menu className="w-8 h-8" />
+        </button>
       </div>
 
-      {/* Mobile Nav Drawer */}
+      {/* Mobile drawer */}
       {menuOpen && (
-        <div className="md:hidden fixed top-0 right-0 w-full h-screen bg-white dark:bg-black bg-opacity-90 backdrop-blur-md z-40 flex flex-col items-center justify-center space-y-8 text-lg font-semibold text-neutral-800 dark:text-neutral-100">
-          {navLinks.map((label) => (
-            <a
-              key={label}
-              href={`#${label.toLowerCase()}`}
+        <div className="md:hidden fixed inset-0 z-[60] flex flex-col bg-white dark:bg-black text-neutral-800 dark:text-neutral-100">
+          <div className="flex items-center justify-between px-6 py-5">
+            <Link
+              to="/"
               onClick={() => setMenuOpen(false)}
-              className="hover:text-blue-600 transition"
+              className="flex items-center gap-2"
             >
-              {label}
+              <img src="/logo.svg" alt="Simplora logo" className="h-16 w-auto" />
+            </Link>
+            <button onClick={() => setMenuOpen(false)} aria-label="Close menu">
+              <X className="w-8 h-8" />
+            </button>
+          </div>
+
+          <nav className="mt-10 flex flex-col items-center gap-8 text-lg font-semibold">
+            {navLinks.map(({ label, href, internal }) =>
+              internal ? (
+                <Link
+                  key={label}
+                  to={href}
+                  onClick={() => setMenuOpen(false)}
+                  className="hover:text-blue-600 transition"
+                >
+                  {label}
+                </Link>
+              ) : (
+                <a
+                  key={label}
+                  href={href}
+                  onClick={() => setMenuOpen(false)}
+                  className="hover:text-blue-600 transition"
+                >
+                  {label}
+                </a>
+              )
+            )}
+            <a
+              href="https://calendar.app.google/7JhbHhJhNG9fHj849"
+              onClick={() => setMenuOpen(false)}
+              className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg hover:brightness-110 transition"
+            >
+              Book a Call
             </a>
-          ))}
-          <a
-            href="#contact"
-            onClick={() => setMenuOpen(false)}
-            className="mt-4 px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow hover:brightness-110 transition"
-          >
-            Book a Call
-          </a>
+          </nav>
         </div>
       )}
     </header>

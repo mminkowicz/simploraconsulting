@@ -36,19 +36,19 @@ export default function Footer() {
           <ul className="space-y-3">
             <li className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <a href="mailto:hello@simplora.com" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                hello@simplora.com
+              <a href="mailto:hello@simplora.co" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                hello@simplora.co
               </a>
             </li>
             <li className="flex items-center gap-2">
               <Instagram className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <a href="https://instagram.com/simplora" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                @simplora
+              <a href="https://instagram.com/simploraconsulting" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                @simploraconsulting
               </a>
             </li>
             <li className="flex items-center gap-2">
               <Linkedin className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <a href="https://linkedin.com/company/simplora" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+              <a href="https://linkedin.com/company/simploraconsulting" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                 LinkedIn
               </a>
             </li>
