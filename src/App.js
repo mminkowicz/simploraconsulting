@@ -3,19 +3,18 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import About from './components/About';
 import Services from './components/Services';
 import Transformation from './components/Transformation';
 import Testimonials from './components/Testimonials';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
-import About from './pages/About';      // ← make sure this file exists
-import ServicesPage from './pages/Services';
-// (Removed the broken import for ./pages/Home)
 
 function HomePage() {
   return (
     <>
       <Hero />
+      <About />
       <Services />
       <Transformation />
       <Testimonials />
@@ -31,9 +30,6 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/services/:serviceId" element={<ServicesPage />} />
         </Routes>
         <Footer />
       </Router>

@@ -57,7 +57,7 @@ const services = [
   {
     id: "strategy",
     title: "Advisory & Strategy",
-    description: "We’re strategic partners — offering planning, tool selection, and long-term system alignment.",
+    description: "We're strategic partners — offering planning, tool selection, and long-term system alignment.",
     icon: FaRocket,
     gradient: "from-green-500 to-emerald-400",
   },
@@ -72,7 +72,7 @@ const services = [
     id: "data",
     title: 'Data Services',
     description:
-      'Clean, import, export, dedupe, and segment data so it’s accurate, usable, and analytics-ready.',
+      'Clean, import, export, dedupe, and segment data so its accurate, usable, and analytics-ready.',
     icon: FaDatabase,
     gradient: 'from-teal-500 to-blue-400',
   },
@@ -131,7 +131,7 @@ export default function Services() {
               transition={{ duration: 0.6, delay: i * 0.1 }}
               viewport={{ once: true }}
             >
-              <Link to={`/services#${service.id}`} className="block h-full group">
+              <Link to="/services" className="block h-full group">
                 <div className="h-full rounded-2xl bg-gradient-to-br from-white to-gray-50 shadow hover:shadow-2xl p-6 sm:p-8 transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02]">
                   <div className={`w-16 h-16 mb-6 rounded-2xl bg-gradient-to-r ${service.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
                     <service.icon className="w-8 h-8 text-white" />
