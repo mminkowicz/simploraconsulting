@@ -7,60 +7,99 @@ export default function Hero() {
   const headline = useRef(null);
   const subhead = useRef(null);
   const cta = useRef(null);
+  const floatingShapes = useRef(null);
 
   useEffect(() => {
+    // Enhanced animation timeline
     gsap.timeline({ defaults: { ease: 'power3.out' } })
-      .fromTo(headline.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1 })
-      .fromTo(subhead.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.6')
-      .fromTo(cta.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.4');
+      .fromTo(headline.current, { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 1.2 })
+      .fromTo(subhead.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1 }, '-=0.8')
+      .fromTo(cta.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.6');
+
+    // Floating shapes animation
+    if (floatingShapes.current) {
+      gsap.to(floatingShapes.current.children, {
+        y: -20,
+        duration: 3,
+        ease: 'power2.inOut',
+        stagger: 0.2,
+        repeat: -1,
+        yoyo: true
+      });
+    }
   }, []);
 
   return (
-    <section className="min-h-[90vh] flex items-center justify-center px-6 pt-32 pb-24 text-center bg-gradient-to-br from-white via-[#f0f9ff] to-white">
-      <div className="max-w-5xl mx-auto">
-        {/* Tagline */}
-        <div className="mb-4">
-          <span className="inline-block px-4 py-1 text-sm font-medium text-[#174AFF] bg-[#E0F2FF] rounded-full">
+    <section className="relative min-h-screen flex items-center justify-center px-6 pt-32 pb-24 text-center overflow-hidden">
+      {/* Enhanced background with multiple gradients */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-indigo-50/20"></div>
+      <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/10 via-transparent to-purple-100/10"></div>
+      
+      {/* Floating decorative elements */}
+      <div ref={floatingShapes} className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 left-10 w-4 h-4 bg-blue-400/20 rounded-full blur-sm"></div>
+        <div className="absolute top-40 right-20 w-6 h-6 bg-purple-400/15 rounded-full blur-sm"></div>
+        <div className="absolute bottom-40 left-20 w-3 h-3 bg-cyan-400/25 rounded-full blur-sm"></div>
+        <div className="absolute bottom-20 right-10 w-5 h-5 bg-indigo-400/20 rounded-full blur-sm"></div>
+        <div className="absolute top-1/3 left-1/4 w-2 h-2 bg-blue-300/30 rounded-full blur-sm"></div>
+        <div className="absolute top-2/3 right-1/3 w-4 h-4 bg-purple-300/20 rounded-full blur-sm"></div>
+      </div>
+
+      {/* Main content */}
+      <div className="relative max-w-6xl mx-auto z-10">
+        {/* Enhanced tagline with better styling */}
+        <div className="mb-8">
+          <span className="inline-flex items-center px-6 py-2 text-sm font-semibold text-blue-700 bg-gradient-to-r from-blue-100 to-cyan-100 rounded-full border border-blue-200/50 shadow-sm">
+            <span className="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse"></span>
             Simplifying Business Systems
           </span>
         </div>
 
-        {/* Headline */}
+        {/* Enhanced headline with gradient text */}
         <h1
           ref={headline}
-          className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-extrabold text-slate-900 leading-tight"
+          className="text-5xl sm:text-6xl md:text-7xl xl:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 leading-[0.9] tracking-tight"
         >
           Your Business Runs Better<br />
-          When Your Systems Do.
+          <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+            When Your Systems Do.
+          </span>
         </h1>
 
-        {/* Subheadline */}
+        {/* Enhanced subheadline with better typography */}
         <p
           ref={subhead}
-          className="mt-6 text-lg sm:text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto"
+          className="mt-8 text-xl sm:text-2xl md:text-3xl text-slate-700 max-w-4xl mx-auto leading-relaxed font-light"
         >
-          At Simplora, we design, build, integrate, and manage the systems your business depends on — like CRMs, project management tools, automation platforms, databases, and more — so everything runs smoothly and works together seamlessly.
+          At <span className="font-semibold text-blue-700">Simplora</span>, we design, build, integrate, and manage the systems your business depends on — 
+          <span className="font-medium text-slate-800"> CRMs, project management tools, automation platforms, databases, and more</span> — 
+          so everything runs smoothly and works together seamlessly.
         </p>
 
-        {/* CTA Buttons */}
+        {/* Enhanced CTA section with better styling */}
         <div
           ref={cta}
-          className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center"
+          className="mt-12 flex flex-col sm:flex-row gap-6 justify-center items-center"
         >
           <a
             href="/book"
-            className="px-8 py-3 rounded-full bg-gradient-to-r from-[#2FCBFF] to-[#174AFF] text-white font-semibold text-lg shadow-md hover:scale-105 transition-transform"
+            className="group relative px-10 py-4 rounded-full bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-600 text-white font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:-translate-y-1"
           >
-            Talk to a Systems Expert →
+            <span className="relative z-10">Talk to a Systems Expert</span>
+            <span className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            <span className="ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
           </a>
           <a
             href="#services"
-            className="px-8 py-3 rounded-full border-2 border-[#174AFF] text-[#174AFF] font-semibold text-lg hover:bg-blue-50 transition"
+            className="px-10 py-4 rounded-full border-2 border-blue-600 text-blue-700 font-bold text-lg hover:bg-blue-50 hover:border-blue-700 transition-all duration-300 hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-xl"
           >
             Explore Services
           </a>
         </div>
       </div>
+
+      {/* Bottom wave decoration */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent"></div>
     </section>
   );
 }

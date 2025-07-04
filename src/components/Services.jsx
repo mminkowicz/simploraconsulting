@@ -20,6 +20,9 @@ import hubspot from '../assets/platforms/hubspot.png';
 import make from '../assets/platforms/make.png';
 import monday from '../assets/platforms/monday.png';
 import pipedrive from '../assets/platforms/pipedrive logo.png';
+import salesforce from '../assets/platforms/salesforce.png';
+import zapier from '../assets/platforms/zapier.png';
+
 
 const services = [
   {
@@ -100,9 +103,12 @@ const platforms = [
   { name: 'Make', src: make },
   { name: 'Monday.com', src: monday },
   { name: 'Pipedrive', src: pipedrive },
+  { name: 'Salesforce', src: salesforce },
+  { name: 'Zapier', src: zapier },
 ];
 
 export default function Services() {
+
   return (
     <section id="services" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -154,7 +160,7 @@ export default function Services() {
           ))}
         </div>
 
-        {/* Platform Logos */}
+        {/* Platform Logos Slideshow */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -165,15 +171,33 @@ export default function Services() {
           <p className="text-sm font-semibold text-gray-500 tracking-widest uppercase mb-6">
             Platforms We Work With
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-6">
-            {platforms.map((p) => (
-              <img
-                key={p.name}
-                src={p.src}
-                alt={p.name}
-                className="h-12 sm:h-16 w-auto max-w-[120px] object-contain opacity-80 hover:opacity-100 transition duration-300"
-              />
-            ))}
+          <div className="relative overflow-hidden">
+            <div 
+              className="flex items-center gap-x-8 gap-y-6 animate-scroll"
+              style={{ 
+                width: 'fit-content',
+                animation: 'scroll 30s linear infinite'
+              }}
+            >
+              {/* First set of logos */}
+              {platforms.map((p) => (
+                <img
+                  key={`first-${p.name}`}
+                  src={p.src}
+                  alt={p.name}
+                  className="h-12 sm:h-16 w-auto max-w-[120px] object-contain opacity-80 hover:opacity-100 transition duration-300 flex-shrink-0"
+                />
+              ))}
+              {/* Duplicate set for seamless loop */}
+              {platforms.map((p) => (
+                <img
+                  key={`second-${p.name}`}
+                  src={p.src}
+                  alt={p.name}
+                  className="h-12 sm:h-16 w-auto max-w-[120px] object-contain opacity-80 hover:opacity-100 transition duration-300 flex-shrink-0"
+                />
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>

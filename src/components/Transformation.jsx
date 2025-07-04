@@ -1,168 +1,96 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle2, Zap } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Zap, Settings, Link2, Smile } from 'lucide-react';
+
+const steps = [
+  {
+    icon: Zap,
+    iconClass: 'text-blue-600',
+    title: 'We Analyze',
+    desc: 'We dive deep into your current systems, workflows, and pain points to understand what\'s holding you back.'
+  },
+  {
+    icon: Settings,
+    iconClass: 'text-cyan-600',
+    title: 'We Design & Build',
+    desc: 'We architect and implement solutions tailored to your business, integrating and automating your tools.'
+  },
+  {
+    icon: Link2,
+    iconClass: 'text-emerald-600',
+    title: 'We Connect',
+    desc: 'We ensure all your platforms, data, and processes work together seamlessly as one ecosystem.'
+  },
+  {
+    icon: Smile,
+    iconClass: 'text-blue-500',
+    title: 'You Grow',
+    desc: 'With your systems running smoothly, you focus on what matters most: growing your business.'
+  },
+];
 
 export default function Transformation() {
-  const [isBeforeView, setIsBeforeView] = useState(true);
-
   return (
-    <section className="py-24 lg:py-32 bg-gradient-to-br from-white via-blue-50 to-blue-100" id="transformation">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-28 bg-gradient-to-br from-white via-blue-50 to-cyan-50" id="transformation">
+      <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
-            Before vs After Simplora
+          <h2 className="text-5xl md:text-6xl font-extrabold text-slate-900 mb-4 leading-tight">
+            The Simplora Transformation
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-            A clear look at what happens when your systems, tools, and data actually work <em>for</em> your business.
+          <p className="text-xl md:text-2xl text-slate-600 max-w-2xl mx-auto font-light">
+            Here's how we turn chaos into clarity, and disconnected tools into a seamless business engine.
           </p>
         </motion.div>
 
-        {/* Toggle */}
-        <div className="flex justify-center gap-4 mb-12">
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setIsBeforeView(true)}
-            className={`px-6 py-2 sm:px-8 sm:py-3 text-sm sm:text-base font-semibold rounded-full transition-all duration-300 ${
-              isBeforeView
-                ? 'bg-blue-600 text-white shadow-md'
-                : 'bg-white text-gray-700 border border-gray-300 hover:border-blue-400'
-            }`}
-          >
-            Before Simplora
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setIsBeforeView(false)}
-            className={`px-6 py-2 sm:px-8 sm:py-3 text-sm sm:text-base font-semibold rounded-full transition-all duration-300 ${
-              !isBeforeView
-                ? 'bg-blue-600 text-white shadow-md'
-                : 'bg-white text-gray-700 border border-gray-300 hover:border-blue-400'
-            }`}
-          >
-            After Simplora
-          </motion.button>
+        {/* Steps Journey */}
+        <div className="relative flex flex-col md:flex-row items-center justify-between gap-12 md:gap-0 mb-20">
+          {steps.map((step, idx) => {
+            const Icon = step.icon;
+            return (
+              <motion.div
+                key={step.title}
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: idx * 0.15 }}
+                viewport={{ once: true }}
+                className="relative z-10 bg-white rounded-2xl shadow-xl px-8 py-10 flex flex-col items-center text-center max-w-xs w-full mx-auto md:mx-0"
+              >
+                <div className="mb-4">
+                  <Icon className={`w-8 h-8 ${step.iconClass}`} />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">{step.title}</h3>
+                <p className="text-slate-600 text-base font-light">{step.desc}</p>
+                {/* Connector line for desktop */}
+                {idx < steps.length - 1 && (
+                  <div className="hidden md:block absolute top-1/2 right-0 w-16 h-1 bg-gradient-to-r from-blue-200 to-cyan-200 -translate-y-1/2 translate-x-full z-0" />
+                )}
+                {/* Connector line for mobile */}
+                {idx < steps.length - 1 && (
+                  <div className="block md:hidden absolute bottom-0 left-1/2 w-1 h-8 bg-gradient-to-b from-blue-200 to-cyan-200 -translate-x-1/2 translate-y-full z-0" />
+                )}
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Content Card */}
-        <div className="rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm bg-white/80 ring-1 ring-gray-200">
-          <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[520px]">
-            {/* Left Panel */}
-            <AnimatePresence mode="wait">
-              {isBeforeView ? (
-                <motion.div
-                  key="before"
-                  initial={{ opacity: 0, x: -40 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -40 }}
-                  transition={{ duration: 0.5 }}
-                  className="bg-gradient-to-br from-red-100 to-orange-50 p-8 sm:p-12 flex flex-col justify-center"
-                >
-                  <div className="space-y-6">
-                    <span className="inline-block px-4 py-1 bg-red-200 text-red-800 text-sm font-semibold rounded-full border border-red-300 w-fit">
-                      Before: Messy & Manual
-                    </span>
-                    <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">Disconnected tools. Inconsistent data. Wasted time.</h3>
-                    <ul className="space-y-4 text-gray-700 text-base sm:text-lg">
-                      {[
-                        'CRMs and platforms not customized or synced',
-                        'Manual data entry, duplicate records, outdated info',
-                        'No clear processes or automations in place',
-                        'Too much time spent on the tech instead of your actual work',
-                      ].map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <span className="mt-2 w-2 h-2 bg-red-500 rounded-full shrink-0" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="after"
-                  initial={{ opacity: 0, x: 40 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 40 }}
-                  transition={{ duration: 0.5 }}
-                  className="bg-gradient-to-br from-emerald-50 to-green-100 p-8 sm:p-12 flex flex-col justify-center"
-                >
-                  <div className="space-y-6">
-                    <span className="inline-block px-4 py-1 bg-green-200 text-green-800 text-sm font-semibold rounded-full border border-green-300 w-fit">
-                      After: Smart & Streamlined
-                    </span>
-                    <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">Customized systems. Clean data. Seamless operations.</h3>
-                    <ul className="space-y-4 text-gray-700 text-base sm:text-lg">
-                      {[
-                        'CRM and tools fully customized to your needs',
-                        'Data cleaned, imported/exported, and always accurate',
-                        'Platforms integrated and automated end-to-end',
-                        'Ongoing support — we handle the tech, you run your business',
-                      ].map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <CheckCircle2 className="mt-1 w-5 h-5 text-green-600" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* CTA Panel */}
-            <motion.div
-              key="cta"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="bg-gradient-to-br from-sky-50 to-cyan-100 p-8 sm:p-12 flex items-center justify-center"
-            >
-              <div className="text-center space-y-6">
-                <motion.div
-                  animate={{ rotate: [0, 10, -10, 0] }}
-                  transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut' }}
-                  className="w-20 h-20 sm:w-24 sm:h-24 mx-auto bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center shadow-lg"
-                >
-                  <Zap className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
-                </motion.div>
-
-                {isBeforeView ? (
-                  <>
-                    <h4 className="text-lg sm:text-xl font-bold text-gray-900">Let’s Clean Up the Chaos</h4>
-                    <a
-                      href="https://calendar.app.google/BYvoopidMCTQkwJn6"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block px-6 py-3 sm:px-8 sm:py-3 text-sm sm:text-base rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold shadow hover:from-blue-700 hover:to-cyan-700 transition"
-                    >
-                      Book Your Free Consultation
-                    </a>
-                  </>
-                ) : (
-                  <>
-                    <h4 className="text-lg sm:text-xl font-bold text-gray-900">Let’s Build Your Ideal System</h4>
-                    <a
-                      href="https://calendar.app.google/BYvoopidMCTQkwJn6"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block px-6 py-3 sm:px-8 sm:py-3 text-sm sm:text-base rounded-full bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold shadow hover:from-green-700 hover:to-emerald-700 transition"
-                    >
-                      Start Your Transformation
-                    </a>
-                  </>
-                )}
-              </div>
-            </motion.div>
-          </div>
+        {/* CTA */}
+        <div className="text-center mt-10">
+          <a
+            href="https://calendar.app.google/BYvoopidMCTQkwJn6"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-10 py-4 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold text-lg shadow-xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 hover:scale-105"
+          >
+            Start Your Transformation
+          </a>
         </div>
       </div>
     </section>

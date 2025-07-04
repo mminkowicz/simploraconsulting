@@ -1,42 +1,6 @@
-import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import {
-  ArrowRight,
-  Users,
-  Target,
-  Award,
-  Clock,
-  TrendingUp,
-  Shield,
-} from "lucide-react";
+'use client';
 
-const stats = [
-  { icon: Users, number: "500+", label: "Happy Clients" },
-  { icon: Target, number: "98%", label: "Success Rate" },
-  { icon: Clock, number: "40+", label: "Hours Saved Weekly" },
-  { icon: Award, number: "50+", label: "Systems Mastered" },
-];
-
-const highlights = [
-  {
-    icon: TrendingUp,
-    title: "Seamless Integration",
-    description:
-      "We connect all your systems so they work together as one unified ecosystem, not separate tools.",
-  },
-  {
-    icon: Shield,
-    title: "Reliable Management",
-    description:
-      "We don't just build systems — we manage them continuously to ensure they keep running smoothly.",
-  },
-  {
-    icon: Users,
-    title: "Business-Focused",
-    description:
-      "Every system we design is built with your business goals in mind, not just technical requirements.",
-  },
-];
+import React, { useEffect, useRef } from 'react';
 
 export default function AboutSection() {
   const sectionRef = useRef(null);
@@ -47,9 +11,9 @@ export default function AboutSection() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target
-              .querySelectorAll(".about-item")
+              .querySelectorAll('.about-fadein')
               .forEach((el, i) =>
-                setTimeout(() => el.classList.add("slide-up"), i * 150)
+                setTimeout(() => el.classList.add('opacity-100', 'translate-y-0'), i * 100)
               );
           }
         });
@@ -64,84 +28,55 @@ export default function AboutSection() {
     <section
       ref={sectionRef}
       id="about"
-      className="py-24 bg-gradient-to-br from-slate-50 to-blue-50"
+      className="py-24 bg-gradient-to-br from-white via-blue-50/40 to-cyan-50/30"
     >
-      <div className="container mx-auto px-6">
-        {/* Header & Intro */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
-          <div>
-            <h2 className="about-item text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-              Who We <span className="gradient-text">Are</span>
-            </h2>
-            <p className="about-item text-xl text-slate-600 mb-8">
-              At Simplora, we design, build, integrate, and manage the systems your business 
-              depends on — like CRMs, project management tools, automation platforms, databases, 
-              and more — so everything runs smoothly and works together seamlessly.
+      <div className="max-w-6xl mx-auto px-6">
+        {/* Main Statement */}
+        <div className="about-fadein opacity-0 translate-y-8 transition-all duration-700 mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 max-w-3xl leading-snug">
+            <span className="text-sm text-blue-500 tracking-widest uppercase font-semibold mb-2 block">
+              What We Stand For
+            </span>
+            We help businesses simplify systems so they can scale smarter, faster, and with confidence.
+          </h2>
+        </div>
+
+        {/* 3-Column Info Block */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-slate-700 text-base md:text-lg leading-relaxed">
+          <div className="about-fadein opacity-0 translate-y-8 transition-all duration-700">
+            <h4 className="text-sm font-semibold uppercase text-blue-600 mb-2 tracking-wide">
+              Our Mission
+            </h4>
+            <p className="font-medium text-slate-900 mb-1">
+              Empower teams through seamless systems.
             </p>
-
-            <div className="about-item space-y-6 mb-8">
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
-                  <Target className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-slate-900 mb-1">
-                    Our Mission
-                  </h3>
-                  <p className="text-slate-600">
-                    To ensure your business runs better by making your systems work better. 
-                    We handle the technical complexity so you can focus on growth and success.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
-                  <Users className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-slate-900 mb-1">
-                    Our Approach
-                  </h3>
-                  <p className="text-slate-600">
-                    We don't just fix systems — we design them to work together seamlessly, 
-                    creating a unified ecosystem that powers your entire business.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-500 rounded-xl flex items-center justify-center">
-                  <Award className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-slate-900 mb-1">
-                    Our Promise
-                  </h3>
-                  <p className="text-slate-600">
-                    When your systems work seamlessly, your business runs smoothly. 
-                    We're here to make that happen, every day.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <Link
-              to="/about"
-              className="about-item inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-4 rounded-lg transition"
-            >
-              Learn More About Us
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Link>
+            <p>
+              We exist to eliminate the chaos of disconnected tools. By centralizing and streamlining workflows, we help you work better, not harder.
+            </p>
           </div>
 
-          {/* Image */}
-          <div className="about-item relative">
-            <img
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop"
-              alt="Team collaboration"
-              className="rounded-2xl shadow-2xl w-full"
-            />
+          <div className="about-fadein opacity-0 translate-y-8 transition-all duration-700">
+            <h4 className="text-sm font-semibold uppercase text-blue-600 mb-2 tracking-wide">
+              Our Approach
+            </h4>
+            <p className="font-medium text-slate-900 mb-1">
+              People-first, process-obsessed.
+            </p>
+            <p>
+              Every system we build is tailored to the humans behind it. Our solutions are structured, scalable, and simple — never one-size-fits-all.
+            </p>
+          </div>
+
+          <div className="about-fadein opacity-0 translate-y-8 transition-all duration-700">
+            <h4 className="text-sm font-semibold uppercase text-blue-600 mb-2 tracking-wide">
+              Our Vision
+            </h4>
+            <p className="font-medium text-slate-900 mb-1">
+              A smarter digital future for every business.
+            </p>
+            <p>
+              We imagine a world where teams don’t fight their tools — they thrive with them. Simplora is here to build that future one system at a time.
+            </p>
           </div>
         </div>
       </div>
