@@ -1,8 +1,7 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   FaTools,
   FaCogs,
@@ -14,6 +13,7 @@ import {
   FaGraduationCap,
   FaSearchPlus
 } from 'react-icons/fa';
+import { ChevronDown, CheckCircle, Clock, Users, Zap, Target, ArrowRight, X } from 'lucide-react';
 
 import clickup from '../assets/platforms/clickup.png';
 import hubspot from '../assets/platforms/hubspot.png';
@@ -32,6 +32,27 @@ const services = [
       'We tailor your systems to match your exact needs — from custom fields, layouts, dashboards to roles and approvals.',
     icon: FaCogs,
     gradient: 'from-purple-500 to-indigo-500',
+    features: [
+      'Custom fields and data structures',
+      'Branded dashboards and interfaces',
+      'Role-based permissions and access',
+      'Custom workflows and approval processes',
+      'Integration with your existing tools',
+      'White-label solutions'
+    ],
+    process: [
+      { step: '01', title: 'Discovery & Analysis', description: 'We analyze your current processes and identify customization opportunities' },
+      { step: '02', title: 'Design & Planning', description: 'Create detailed specifications and mockups for your custom solution' },
+      { step: '03', title: 'Development & Testing', description: 'Build and thoroughly test your customized system' },
+      { step: '04', title: 'Deployment & Training', description: 'Launch your system and train your team on the new workflows' }
+    ],
+    benefits: [
+      'Increased efficiency through streamlined workflows',
+      'Better user adoption with familiar interfaces',
+      'Scalable solutions that grow with your business',
+      'Competitive advantage through unique processes'
+    ],
+    platforms: ['ClickUp', 'HubSpot', 'Monday.com', 'Pipedrive', 'Salesforce', 'Custom Apps']
   },
   {
     id: "automation",
@@ -40,6 +61,27 @@ const services = [
       'Say goodbye to repetitive tasks. We design powerful automations and workflows so everything runs smoothly and hands-free.',
     icon: FaSyncAlt,
     gradient: 'from-yellow-400 to-orange-400',
+    features: [
+      'Workflow automation design',
+      'Trigger-based actions',
+      'Multi-step process automation',
+      'Error handling and notifications',
+      'Performance monitoring',
+      'Scalable automation architecture'
+    ],
+    process: [
+      { step: '01', title: 'Process Mapping', description: 'Document current workflows and identify automation opportunities' },
+      { step: '02', title: 'Automation Design', description: 'Design efficient automation workflows with proper error handling' },
+      { step: '03', title: 'Implementation', description: 'Build and configure automation rules and triggers' },
+      { step: '04', title: 'Testing & Optimization', description: 'Test thoroughly and optimize for performance and reliability' }
+    ],
+    benefits: [
+      '70% reduction in manual tasks',
+      'Improved accuracy and consistency',
+      'Faster response times',
+      '24/7 operation without human intervention'
+    ],
+    platforms: ['Make', 'Zapier', 'ClickUp', 'HubSpot', 'Monday.com', 'Custom Scripts']
   },
   {
     id: "integrations",
@@ -48,6 +90,27 @@ const services = [
       'Connect all the tools your business relies on — ClickUp, HubSpot, Make, Google Workspace, QuickBooks, and more.',
     icon: FaPlug,
     gradient: 'from-pink-500 to-red-400',
+    features: [
+      'API integration development',
+      'Real-time data synchronization',
+      'Bidirectional data flow',
+      'Error handling and retry logic',
+      'Data transformation and mapping',
+      'Integration monitoring and alerts'
+    ],
+    process: [
+      { step: '01', title: 'System Audit', description: 'Review all your tools and identify integration needs' },
+      { step: '02', title: 'Integration Planning', description: 'Design data flow maps and integration architecture' },
+      { step: '03', title: 'Development', description: 'Build and test integrations with proper error handling' },
+      { step: '04', title: 'Deployment & Monitoring', description: 'Launch integrations and set up monitoring systems' }
+    ],
+    benefits: [
+      'Eliminate duplicate data entry',
+      'Real-time data consistency across systems',
+      'Improved decision-making with unified data',
+      'Reduced integration maintenance costs'
+    ],
+    platforms: ['ClickUp', 'HubSpot', 'Make', 'Monday.com', 'Pipedrive', 'Salesforce', 'Google Workspace', 'QuickBooks']
   },
   {
     id: "support",
@@ -56,6 +119,27 @@ const services = [
       'Ongoing updates, troubleshooting, user support, and performance monitoring so your stack runs at peak speed.',
     icon: FaTools,
     gradient: 'from-blue-500 to-cyan-500',
+    features: [
+      '24/7 system monitoring',
+      'Regular maintenance and updates',
+      'User support and training',
+      'Performance optimization',
+      'Security updates and patches',
+      'Backup and disaster recovery'
+    ],
+    process: [
+      { step: '01', title: 'Support Setup', description: 'Establish monitoring, backup, and support procedures' },
+      { step: '02', title: 'Ongoing Maintenance', description: 'Regular updates, optimization, and system health checks' },
+      { step: '03', title: 'User Support', description: 'Provide training and support for your team' },
+      { step: '04', title: 'Continuous Improvement', description: 'Monitor performance and implement improvements' }
+    ],
+    benefits: [
+      'Minimal downtime and disruptions',
+      'Always up-to-date systems',
+      'Expert support when you need it',
+      'Peace of mind knowing systems are cared for'
+    ],
+    platforms: ['All Platforms', 'Custom Systems', 'Cloud Infrastructure']
   },
   {
     id: "strategy",
@@ -63,6 +147,27 @@ const services = [
     description: "We're strategic partners — offering planning, tool selection, and long-term system alignment.",
     icon: FaRocket,
     gradient: "from-green-500 to-emerald-400",
+    features: [
+      'Technology strategy consulting',
+      'Tool evaluation and selection',
+      'System architecture design',
+      'ROI analysis and planning',
+      'Change management support',
+      'Long-term technology roadmaps'
+    ],
+    process: [
+      { step: '01', title: 'Business Assessment', description: 'Understand your business goals and current technology landscape' },
+      { step: '02', title: 'Strategy Development', description: 'Create comprehensive technology strategy and roadmap' },
+      { step: '03', title: 'Implementation Planning', description: 'Plan the execution of your technology strategy' },
+      { step: '04', title: 'Ongoing Advisory', description: 'Provide ongoing strategic guidance and support' }
+    ],
+    benefits: [
+      'Informed technology decisions',
+      'Optimized technology investments',
+      'Reduced implementation risks',
+      'Long-term technology alignment'
+    ],
+    platforms: ['Strategic Planning', 'Tool Evaluation', 'Architecture Design']
   },
   {
     id: "development",
@@ -70,6 +175,27 @@ const services = [
     description: "Need more than off-the-shelf? We build custom apps, scripts, and middleware tailored to your stack.",
     icon: FaCode,
     gradient: "from-fuchsia-500 to-rose-500",
+    features: [
+      'Custom web applications',
+      'API development',
+      'Database design and optimization',
+      'Mobile app development',
+      'Scripting and automation',
+      'Third-party integrations'
+    ],
+    process: [
+      { step: '01', title: 'Requirements Gathering', description: 'Deep dive into your business needs and technical requirements' },
+      { step: '02', title: 'Solution Design', description: 'Design the architecture and user experience for your custom solution' },
+      { step: '03', title: 'Development', description: 'Build your custom solution with regular progress updates' },
+      { step: '04', title: 'Testing & Deployment', description: 'Thorough testing and smooth deployment to production' }
+    ],
+    benefits: [
+      'Perfect fit for your business needs',
+      'Competitive advantage through unique solutions',
+      'Scalable and maintainable code',
+      'Full ownership of your custom solution'
+    ],
+    platforms: ['React', 'Node.js', 'Python', 'PHP', 'Mobile Development', 'Cloud Platforms']
   },
   {
     id: "data",
@@ -78,6 +204,27 @@ const services = [
       'Clean, import, export, dedupe, and segment data so its accurate, usable, and analytics-ready.',
     icon: FaDatabase,
     gradient: 'from-teal-500 to-blue-400',
+    features: [
+      'Data cleaning and deduplication',
+      'Data migration and import',
+      'Database optimization',
+      'Data analysis and reporting',
+      'Data governance setup',
+      'Backup and recovery systems'
+    ],
+    process: [
+      { step: '01', title: 'Data Assessment', description: 'Analyze your current data quality and structure' },
+      { step: '02', title: 'Data Cleaning', description: 'Clean, deduplicate, and standardize your data' },
+      { step: '03', title: 'Migration & Setup', description: 'Migrate data to new systems and set up governance' },
+      { step: '04', title: 'Optimization', description: 'Optimize for performance and set up monitoring' }
+    ],
+    benefits: [
+      'Improved data accuracy and reliability',
+      'Better decision-making with clean data',
+      'Faster system performance',
+      'Reduced data-related errors'
+    ],
+    platforms: ['SQL Databases', 'NoSQL Databases', 'Cloud Storage', 'Analytics Platforms']
   },
   {
     id: "training",
@@ -86,6 +233,27 @@ const services = [
       'Empower your team with hands-on training, video docs, and onboarding flows built for adoption.',
     icon: FaGraduationCap,
     gradient: 'from-violet-500 to-purple-500',
+    features: [
+      'Custom training programs',
+      'Video documentation',
+      'Interactive workshops',
+      'User adoption strategies',
+      'Ongoing support and Q&A',
+      'Training materials and resources'
+    ],
+    process: [
+      { step: '01', title: 'Training Needs Assessment', description: 'Identify training needs and create custom programs' },
+      { step: '02', title: 'Content Development', description: 'Create training materials and documentation' },
+      { step: '03', title: 'Training Delivery', description: 'Deliver training through workshops and sessions' },
+      { step: '04', title: 'Follow-up & Support', description: 'Provide ongoing support and additional training as needed' }
+    ],
+    benefits: [
+      'Faster user adoption',
+      'Reduced support requests',
+      'Increased system utilization',
+      'Better return on technology investment'
+    ],
+    platforms: ['All Business Systems', 'Custom Training Programs', 'Video Documentation']
   },
   {
     id: "audit",
@@ -94,6 +262,27 @@ const services = [
       'We evaluate your systems, find gaps and inefficiencies, then optimize for performance and ROI.',
     icon: FaSearchPlus,
     gradient: 'from-amber-500 to-yellow-500',
+    features: [
+      'System performance audits',
+      'Security assessments',
+      'Cost optimization analysis',
+      'User adoption evaluation',
+      'Integration gap analysis',
+      'Optimization recommendations'
+    ],
+    process: [
+      { step: '01', title: 'Comprehensive Audit', description: 'Review all aspects of your current systems' },
+      { step: '02', title: 'Analysis & Reporting', description: 'Analyze findings and create detailed recommendations' },
+      { step: '03', title: 'Optimization Planning', description: 'Create action plan for implementing improvements' },
+      { step: '04', title: 'Implementation Support', description: 'Support the implementation of optimization recommendations' }
+    ],
+    benefits: [
+      'Improved system performance',
+      'Reduced costs and inefficiencies',
+      'Better user experience',
+      'Increased ROI on technology investments'
+    ],
+    platforms: ['All Business Systems', 'Performance Monitoring', 'Cost Analysis']
   },
 ];
 
@@ -108,6 +297,15 @@ const platforms = [
 ];
 
 export default function Services() {
+  const [selectedService, setSelectedService] = useState(null);
+
+  const openServiceModal = (service) => {
+    setSelectedService(service);
+  };
+
+  const closeServiceModal = () => {
+    setSelectedService(null);
+  };
 
   return (
     <section id="services" className="py-20 bg-white">
@@ -119,16 +317,22 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Core Services</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Optamyze simplifies, automates, and elevates the systems that power modern businesses.
+          <span className="inline-flex items-center px-4 py-2 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full mb-6">
+            <Zap className="w-4 h-4 mr-2" />
+            What We Do Best
+          </span>
+          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+            Core Services
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            We transform business operations through intelligent automation, seamless integrations, and custom solutions that scale with your growth.
           </p>
         </motion.div>
 
         {/* Service Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {services.map((service, i) => (
             <motion.div
               key={service.id}
@@ -136,29 +340,160 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
               viewport={{ once: true }}
+              className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer group"
+              onClick={() => openServiceModal(service)}
             >
-              <Link to="/services" className="block h-full group">
-                <div className="h-full rounded-2xl bg-gradient-to-br from-white to-gray-50 shadow hover:shadow-2xl p-6 sm:p-8 transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02]">
-                  <div className={`w-16 h-16 mb-6 rounded-2xl bg-gradient-to-r ${service.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+              {/* Service Card */}
+              <div className="w-full p-6 text-left hover:bg-gradient-to-r hover:from-gray-50 hover:to-blue-50/30 transition-all duration-300">
+                <div className="text-center mb-4">
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${service.gradient} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
                     <service.icon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 flex items-center justify-center gap-2">
                     <span className="text-xs font-semibold text-white bg-black/80 px-2 py-0.5 rounded-full">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     {service.title}
                   </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                  <p className="text-gray-600 text-sm leading-relaxed">
                     {service.description}
                   </p>
-                  <span className="inline-block text-sm font-semibold text-blue-600 hover:underline">
-                    View More →
-                  </span>
                 </div>
-              </Link>
+                <div className="flex items-center justify-center gap-2 text-blue-600 group-hover:text-blue-700 transition-colors duration-300">
+                  <span className="text-sm font-semibold">Learn More</span>
+                  <ArrowRight className="w-4 h-4" />
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Service Modal */}
+        <AnimatePresence>
+          {selectedService && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+              onClick={closeServiceModal}
+            >
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Modal Header */}
+                <div className="sticky top-0 bg-white border-b border-gray-100 p-6 rounded-t-2xl">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${selectedService.gradient} flex items-center justify-center`}>
+                        <selectedService.icon className="w-8 h-8 text-white" />
+                      </div>
+                      <div>
+                        <h2 className="text-2xl font-bold text-gray-900">{selectedService.title}</h2>
+                        <p className="text-gray-600">{selectedService.description}</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={closeServiceModal}
+                      className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors duration-300"
+                    >
+                      <X className="w-5 h-5 text-gray-600" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Modal Content */}
+                <div className="p-6">
+                  {/* Features */}
+                  <div className="mb-8">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-500" />
+                      What's Included
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {selectedService.features.map((feature, index) => (
+                        <div key={index} className="flex items-start gap-2">
+                          <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                          <span className="text-gray-700">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Process */}
+                  <div className="mb-8">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                      <Clock className="w-5 h-5 text-blue-500" />
+                      Our Process
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                      {selectedService.process.map((step, index) => (
+                        <div key={index} className="text-center">
+                          <div className={`w-12 h-12 mx-auto mb-3 rounded-full bg-gradient-to-r ${selectedService.gradient} flex items-center justify-center text-white font-bold text-sm`}>
+                            {step.step}
+                          </div>
+                          <h5 className="font-semibold text-gray-900 text-sm mb-1">{step.title}</h5>
+                          <p className="text-gray-600 text-xs">{step.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Benefits */}
+                  <div className="mb-8">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                      <Target className="w-5 h-5 text-purple-500" />
+                      Key Benefits
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {selectedService.benefits.map((benefit, index) => (
+                        <div key={index} className="flex items-start gap-3 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg">
+                          <div className={`w-6 h-6 rounded-full bg-gradient-to-r ${selectedService.gradient} flex items-center justify-center text-white text-xs font-bold flex-shrink-0`}>
+                            {index + 1}
+                          </div>
+                          <span className="text-gray-700 text-sm font-medium">{benefit}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Platforms */}
+                  <div className="mb-6">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                      <Users className="w-5 h-5 text-cyan-500" />
+                      Platforms We Work With
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedService.platforms.map((platform, index) => (
+                        <span key={index} className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">
+                          {platform}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* CTA */}
+                  <div className="text-center pt-4 border-t border-gray-100">
+                    <a
+                      href="https://calendar.app.google/7JhbHhJhNG9fHj849"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105"
+                    >
+                      Get Started with {selectedService.title}
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Platform Logos Slideshow */}
         <motion.div

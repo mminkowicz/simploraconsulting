@@ -47,13 +47,6 @@ export default function Hero() {
 
       {/* Main content */}
       <div className="relative max-w-6xl mx-auto z-10">
-        {/* Enhanced tagline with better styling */}
-        <div className="mb-8">
-          <span className="inline-flex items-center px-6 py-2 text-sm font-semibold text-blue-700 bg-gradient-to-r from-blue-100 to-cyan-100 rounded-full border border-blue-200/50 shadow-sm">
-            <span className="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse"></span>
-            Simplifying Business Systems
-          </span>
-        </div>
 
         {/* Enhanced headline with gradient text */}
         <h1
@@ -71,9 +64,7 @@ export default function Hero() {
           ref={subhead}
           className="mt-8 text-xl sm:text-2xl md:text-3xl text-slate-700 max-w-4xl mx-auto leading-relaxed font-light"
         >
-          At <span className="font-semibold text-blue-700">Simplora</span>, we design, build, integrate, and manage the systems your business depends on — 
-          <span className="font-medium text-slate-800"> CRMs, project management tools, automation platforms, databases, and more</span> — 
-          so everything runs smoothly and works together seamlessly.
+          At <span className="font-semibold text-blue-700">Simplora</span>, At Simplora, we simplify the systems your business relies on — from CRMs and project management tools to automation platforms and databases. We design, integrate, and manage everything so your tools work in harmony and your team can focus on what matters.
         </p>
 
         {/* Enhanced CTA section with better styling */}

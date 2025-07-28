@@ -9,6 +9,9 @@ import Transformation from './components/Transformation';
 import Testimonials from './components/Testimonials';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
+import ServiceDetail from './components/ServiceDetail';
+import OurStory from './components/OurStory';
+import OurTeam from './components/OurTeam';
 
 function HomePage() {
   return (
@@ -30,6 +33,9 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/services/:serviceId" element={<ServiceDetail />} />
+          <Route path="/story" element={<OurStory />} />
+          <Route path="/team" element={<OurTeam />} />
         </Routes>
         <Footer />
       </Router>

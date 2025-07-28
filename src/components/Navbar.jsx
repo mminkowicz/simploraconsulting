@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 import gsap from "gsap";
 
 export default function Navbar() {
@@ -9,6 +10,8 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // Enhanced entrance animation
@@ -29,22 +32,45 @@ export default function Navbar() {
   // Enhanced nav links with descriptions
   const navLinks = [
     { label: "Home", href: "#home", description: "Welcome to Simplora" },
-    { label: "About", href: "#about", description: "Our story & mission" },
+    { 
+      label: "About", 
+      href: "#about", 
+      description: "Our story & mission",
+      dropdown: [
+        { label: "Our Story", href: "/story", description: "How we started" },
+        { label: "Our Team", href: "/team", description: "Meet the experts" }
+      ]
+    },
     { label: "Services", href: "#services", description: "What we offer" },
     { label: "Contact", href: "#contact", description: "Get in touch" }
   ];
 
-  // Smooth scroll handler with active section tracking
+  // Navigation handler that works for both home page and other pages
   const handleNavClick = (e, href) => {
     if (href.startsWith("#")) {
       e.preventDefault();
       const sectionId = href.substring(1);
-      const el = document.getElementById(sectionId);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-        setActiveSection(sectionId);
-        setMenuOpen(false);
+      
+      // If we're not on the home page, navigate to home first
+      if (location.pathname !== "/") {
+        navigate("/");
+        // Wait for navigation to complete, then scroll to section
+        setTimeout(() => {
+          const el = document.getElementById(sectionId);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+            setActiveSection(sectionId);
+          }
+        }, 100);
+      } else {
+        // We're already on home page, just scroll to section
+        const el = document.getElementById(sectionId);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+          setActiveSection(sectionId);
+        }
       }
+      setMenuOpen(false);
     }
   };
 
@@ -63,7 +89,14 @@ export default function Navbar() {
         <a 
           href="#home" 
           className="flex items-center" 
-          onClick={e => handleNavClick(e, "#home")}
+          onClick={e => {
+            e.preventDefault();
+            if (location.pathname !== "/") {
+              navigate("/");
+            } else {
+              handleNavClick(e, "#home");
+            }
+          }}
         > 
           <img
             src="/logo.svg"
@@ -74,18 +107,20 @@ export default function Navbar() {
 
         {/* Enhanced Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8">
-          {navLinks.map(({ label, href, description }) => (
+          {navLinks.map(({ label, href, description, dropdown }) => (
             <div key={label} className="relative group">
-              <a
-                href={href}
-                onClick={e => handleNavClick(e, href)}
-                className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 hover:text-blue-600 ${
-                  activeSection === href.substring(1) 
-                    ? 'text-blue-600' 
-                    : 'text-slate-700'
-                }`}
-              >
-                {label}
+              <div className="relative">
+                <a
+                  href={href}
+                  onClick={e => handleNavClick(e, href)}
+                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 hover:text-blue-600 flex items-center gap-1 ${
+                    activeSection === href.substring(1) 
+                      ? 'text-blue-600' 
+                      : 'text-slate-700'
+                  }`}
+                >
+                  {label}
+                  {dropdown && <ChevronDown className="w-3 h-3 transition-transform duration-300 group-hover:rotate-180" />}
                 {/* Active indicator */}
                 {activeSection === href.substring(1) && (
                   <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-blue-600 rounded-full"></div>
@@ -93,12 +128,44 @@ export default function Navbar() {
                 {/* Hover underline */}
                 <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 transition-all duration-300 group-hover:w-full"></div>
               </a>
+            </div>
               
-              {/* Tooltip */}
-              <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-3 py-1 bg-slate-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-50">
-                {description}
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-900"></div>
-              </div>
+                              {/* Dropdown Menu */}
+                {dropdown && (
+                  <div className="absolute top-full left-0 mt-4 w-48 bg-white/95 backdrop-blur-xl rounded-xl shadow-xl border border-slate-200/50 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto transform translate-y-2 group-hover:translate-y-0 hover:opacity-100 hover:pointer-events-auto">
+                    {/* Invisible bridge to prevent dropdown from closing */}
+                    <div className="absolute -top-4 left-0 w-full h-4 bg-transparent"></div>
+                    <div className="p-2">
+                    {dropdown.map((item, index) => (
+                      <a
+                        key={index}
+                        href={item.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          navigate(item.href);
+                          setMenuOpen(false);
+                        }}
+                        className="flex items-center justify-between p-3 rounded-lg hover:bg-blue-50/80 transition-all duration-200 group/item"
+                      >
+                        <div>
+                          <div className="font-medium text-slate-900 group-hover/item:text-blue-600 transition-colors duration-200">
+                            {item.label}
+                          </div>
+                          <div className="text-xs text-slate-500">{item.description}</div>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {/* Tooltip for non-dropdown items */}
+              {!dropdown && (
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-3 py-1 bg-slate-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-50">
+                  {description}
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-900"></div>
+                </div>
+              )}
             </div>
           ))}
           
@@ -142,7 +209,15 @@ export default function Navbar() {
               <div className="flex items-center justify-between px-6 py-6 border-b border-slate-200/50">
                 <a
                   href="#home"
-                  onClick={e => handleNavClick(e, "#home")}
+                  onClick={e => {
+                    e.preventDefault();
+                    if (location.pathname !== "/") {
+                      navigate("/");
+                    } else {
+                      handleNavClick(e, "#home");
+                    }
+                    setMenuOpen(false);
+                  }}
                   className="flex items-center gap-3"
                 >
                   <img src="/logo.svg" alt="Simplora logo" className="h-10 w-auto" />
@@ -160,20 +235,45 @@ export default function Navbar() {
               {/* Navigation Links */}
               <nav className="flex-1 px-6 py-8">
                 <div className="space-y-2">
-                  {navLinks.map(({ label, href, description }) => (
-                    <a
-                      key={label}
-                      href={href}
-                      onClick={e => handleNavClick(e, href)}
-                      className={`block px-4 py-3 rounded-xl transition-all duration-300 hover:bg-blue-50 hover:text-blue-600 ${
-                        activeSection === href.substring(1) 
-                          ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-600' 
-                          : 'text-slate-700'
-                      }`}
-                    >
-                      <div className="font-semibold text-lg">{label}</div>
-                      <div className="text-sm text-slate-500 mt-1">{description}</div>
-                    </a>
+                  {navLinks.map(({ label, href, description, dropdown }) => (
+                    <div key={label}>
+                      <a
+                        href={href}
+                        onClick={e => handleNavClick(e, href)}
+                        className={`block px-4 py-3 rounded-xl transition-all duration-300 hover:bg-blue-50 hover:text-blue-600 ${
+                          activeSection === href.substring(1) 
+                            ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-600' 
+                            : 'text-slate-700'
+                        }`}
+                      >
+                        <div className="font-semibold text-lg flex items-center justify-between">
+                          {label}
+                          {dropdown && <ChevronDown className="w-4 h-4" />}
+                        </div>
+                        <div className="text-sm text-slate-500 mt-1">{description}</div>
+                      </a>
+                      
+                      {/* Mobile dropdown items */}
+                      {dropdown && (
+                        <div className="ml-4 mt-2 space-y-1">
+                          {dropdown.map((item, index) => (
+                            <a
+                              key={index}
+                              href={item.href}
+                                                          onClick={(e) => {
+                              e.preventDefault();
+                              navigate(item.href);
+                              setMenuOpen(false);
+                            }}
+                              className="block px-4 py-2 rounded-lg hover:bg-slate-50 transition-all duration-200"
+                            >
+                              <div className="font-medium text-slate-900">{item.label}</div>
+                              <div className="text-sm text-slate-500">{item.description}</div>
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   ))}
                 </div>
               </nav>
