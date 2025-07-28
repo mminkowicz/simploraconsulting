@@ -13,7 +13,7 @@ import {
   FaGraduationCap,
   FaSearchPlus
 } from 'react-icons/fa';
-import { ChevronDown, CheckCircle, Clock, Users, Zap, Target, ArrowRight, X } from 'lucide-react';
+import { ChevronDown, CheckCircle, Clock, Users, Zap, Target, ArrowRight, X, Star, TrendingUp, Shield, Award, Play, Pause, BarChart3 } from 'lucide-react';
 
 import clickup from '../assets/platforms/clickup.png';
 import hubspot from '../assets/platforms/hubspot.png';
@@ -298,13 +298,23 @@ const platforms = [
 
 export default function Services() {
   const [selectedService, setSelectedService] = useState(null);
+  const [activeTab, setActiveTab] = useState('overview');
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const openServiceModal = (service) => {
     setSelectedService(service);
+    setActiveTab('overview');
+    setIsPlaying(false);
   };
 
   const closeServiceModal = () => {
     setSelectedService(null);
+    setActiveTab('overview');
+    setIsPlaying(false);
+  };
+
+  const togglePlay = () => {
+    setIsPlaying(!isPlaying);
   };
 
   return (
@@ -409,76 +419,302 @@ export default function Services() {
 
                 {/* Modal Content */}
                 <div className="p-6">
-                  {/* Features */}
-                  <div className="mb-8">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-500" />
-                      What's Included
-                    </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {selectedService.features.map((feature, index) => (
-                        <div key={index} className="flex items-start gap-2">
-                          <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                          <span className="text-gray-700">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
+                  {/* Interactive Tabs */}
+                  <div className="flex space-x-1 mb-6 bg-gray-100 rounded-lg p-1">
+                    {[
+                      { id: 'overview', label: 'Overview', icon: BarChart3 },
+                      { id: 'process', label: 'Process', icon: Clock },
+                      { id: 'benefits', label: 'Benefits', icon: Target },
+                      { id: 'platforms', label: 'Platforms', icon: Users }
+                    ].map((tab) => (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                          activeTab === tab.id
+                            ? 'bg-white text-blue-600 shadow-sm'
+                            : 'text-gray-600 hover:text-gray-900'
+                        }`}
+                      >
+                        <tab.icon className="w-4 h-4" />
+                        {tab.label}
+                      </button>
+                    ))}
                   </div>
 
-                  {/* Process */}
-                  <div className="mb-8">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                      <Clock className="w-5 h-5 text-blue-500" />
-                      Our Process
-                    </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                      {selectedService.process.map((step, index) => (
-                        <div key={index} className="text-center">
-                          <div className={`w-12 h-12 mx-auto mb-3 rounded-full bg-gradient-to-r ${selectedService.gradient} flex items-center justify-center text-white font-bold text-sm`}>
-                            {step.step}
+                  {/* Tab Content */}
+                  <AnimatePresence mode="wait">
+                    {activeTab === 'overview' && (
+                      <motion.div
+                        key="overview"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.3 }}
+                        className="space-y-6"
+                      >
+                        {/* Service Stats */}
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                          <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl">
+                            <div className="text-2xl font-bold text-blue-600 mb-1">95%</div>
+                            <div className="text-xs text-gray-600">Success Rate</div>
                           </div>
-                          <h5 className="font-semibold text-gray-900 text-sm mb-1">{step.title}</h5>
-                          <p className="text-gray-600 text-xs">{step.description}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Benefits */}
-                  <div className="mb-8">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                      <Target className="w-5 h-5 text-purple-500" />
-                      Key Benefits
-                    </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {selectedService.benefits.map((benefit, index) => (
-                        <div key={index} className="flex items-start gap-3 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg">
-                          <div className={`w-6 h-6 rounded-full bg-gradient-to-r ${selectedService.gradient} flex items-center justify-center text-white text-xs font-bold flex-shrink-0`}>
-                            {index + 1}
+                          <div className="text-center p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl">
+                            <div className="text-2xl font-bold text-green-600 mb-1">2-4</div>
+                            <div className="text-xs text-gray-600">Weeks Delivery</div>
                           </div>
-                          <span className="text-gray-700 text-sm font-medium">{benefit}</span>
+                          <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl">
+                            <div className="text-2xl font-bold text-purple-600 mb-1">24/7</div>
+                            <div className="text-xs text-gray-600">Support</div>
+                          </div>
+                          <div className="text-center p-4 bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl">
+                            <div className="text-2xl font-bold text-orange-600 mb-1">100+</div>
+                            <div className="text-xs text-gray-600">Projects</div>
+                          </div>
                         </div>
-                      ))}
-                    </div>
-                  </div>
 
-                  {/* Platforms */}
-                  <div className="mb-6">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                      <Users className="w-5 h-5 text-cyan-500" />
-                      Platforms We Work With
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedService.platforms.map((platform, index) => (
-                        <span key={index} className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">
-                          {platform}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                        {/* Interactive Demo */}
+                        <div className="bg-gray-50 rounded-xl p-6">
+                          <div className="flex items-center justify-between mb-4">
+                            <h4 className="text-lg font-semibold text-gray-900">Interactive Demo</h4>
+                            <button
+                              onClick={togglePlay}
+                              className="flex items-center gap-2 px-3 py-1 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition-colors"
+                            >
+                              {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                              {isPlaying ? 'Pause' : 'Play'}
+                            </button>
+                          </div>
+                          <div className="space-y-3">
+                            {selectedService.features.slice(0, 3).map((feature, index) => (
+                              <motion.div
+                                key={index}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: index * 0.2 }}
+                                className="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm"
+                              >
+                                <div className={`w-8 h-8 rounded-full bg-gradient-to-r ${selectedService.gradient} flex items-center justify-center`}>
+                                  <CheckCircle className="w-4 h-4 text-white" />
+                                </div>
+                                <span className="text-gray-700">{feature}</span>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* What's Included */}
+                        <div>
+                          <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                            <CheckCircle className="w-5 h-5 text-green-500" />
+                            What's Included
+                          </h4>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {selectedService.features.map((feature, index) => (
+                              <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                                className="flex items-start gap-2 p-2 hover:bg-gray-50 rounded-lg transition-colors"
+                              >
+                                <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                                <span className="text-gray-700">{feature}</span>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {activeTab === 'process' && (
+                      <motion.div
+                        key="process"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.3 }}
+                        className="space-y-6"
+                      >
+                        {/* Interactive Process Flow */}
+                        <div className="relative">
+                          <div className="flex items-center justify-between mb-6">
+                            <h4 className="text-lg font-semibold text-gray-900">Our Process</h4>
+                            <div className="text-sm text-gray-500">4 Steps to Success</div>
+                          </div>
+                          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            {selectedService.process.map((step, index) => (
+                              <motion.div
+                                key={index}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: index * 0.1 }}
+                                className="relative group"
+                              >
+                                <div className="text-center">
+                                  <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r ${selectedService.gradient} flex items-center justify-center text-white font-bold text-lg group-hover:scale-110 transition-transform duration-300`}>
+                                    {step.step}
+                                  </div>
+                                  <h5 className="font-semibold text-gray-900 mb-2">{step.title}</h5>
+                                  <p className="text-gray-600 text-sm leading-relaxed">{step.description}</p>
+                                </div>
+                                {index < selectedService.process.length - 1 && (
+                                  <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-blue-200 to-transparent transform translate-x-2"></div>
+                                )}
+                              </motion.div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Timeline Visualization */}
+                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6">
+                          <h5 className="font-semibold text-gray-900 mb-4">Timeline Overview</h5>
+                          <div className="space-y-4">
+                            {selectedService.process.map((step, index) => (
+                              <div key={index} className="flex items-center gap-4">
+                                <div className={`w-8 h-8 rounded-full bg-gradient-to-r ${selectedService.gradient} flex items-center justify-center text-white text-sm font-bold`}>
+                                  {step.step}
+                                </div>
+                                <div className="flex-1">
+                                  <div className="font-medium text-gray-900">{step.title}</div>
+                                  <div className="text-sm text-gray-600">{step.description}</div>
+                                </div>
+                                <div className="text-sm text-gray-500">Week {index + 1}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {activeTab === 'benefits' && (
+                      <motion.div
+                        key="benefits"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.3 }}
+                        className="space-y-6"
+                      >
+                        {/* Benefits Grid with Icons */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {selectedService.benefits.map((benefit, index) => (
+                            <motion.div
+                              key={index}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: index * 0.1 }}
+                              className="group p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                            >
+                              <div className="flex items-start gap-4">
+                                <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${selectedService.gradient} flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300`}>
+                                  {index === 0 && <TrendingUp className="w-6 h-6" />}
+                                  {index === 1 && <Shield className="w-6 h-6" />}
+                                  {index === 2 && <Award className="w-6 h-6" />}
+                                  {index === 3 && <Star className="w-6 h-6" />}
+                                </div>
+                                <div>
+                                  <h5 className="font-semibold text-gray-900 mb-2">Benefit {index + 1}</h5>
+                                  <p className="text-gray-700 text-sm leading-relaxed">{benefit}</p>
+                                </div>
+                              </div>
+                            </motion.div>
+                          ))}
+                        </div>
+
+                        {/* Success Metrics */}
+                        <div className="bg-white border border-gray-200 rounded-xl p-6">
+                          <h5 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                            <BarChart3 className="w-5 h-5 text-blue-500" />
+                            Success Metrics
+                          </h5>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="text-center">
+                              <div className="text-3xl font-bold text-blue-600 mb-1">70%</div>
+                              <div className="text-sm text-gray-600">Efficiency Increase</div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-3xl font-bold text-green-600 mb-1">50%</div>
+                              <div className="text-sm text-gray-600">Cost Reduction</div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-3xl font-bold text-purple-600 mb-1">90%</div>
+                              <div className="text-sm text-gray-600">Client Satisfaction</div>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {activeTab === 'platforms' && (
+                      <motion.div
+                        key="platforms"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.3 }}
+                        className="space-y-6"
+                      >
+                        {/* Platform Grid */}
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                          {selectedService.platforms.map((platform, index) => (
+                            <motion.div
+                              key={index}
+                              initial={{ opacity: 0, scale: 0.9 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: index * 0.1 }}
+                              className="group p-4 bg-white border border-gray-200 rounded-xl hover:shadow-lg hover:border-blue-300 transition-all duration-300 hover:-translate-y-1"
+                            >
+                              <div className="text-center">
+                                <div className="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                  <span className="text-lg font-bold text-gray-600">{platform.charAt(0)}</span>
+                                </div>
+                                <div className="font-medium text-gray-900 text-sm">{platform}</div>
+                              </div>
+                            </motion.div>
+                          ))}
+                        </div>
+
+                        {/* Integration Capabilities */}
+                        <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6">
+                          <h5 className="font-semibold text-gray-900 mb-4">Integration Capabilities</h5>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                              <div className="flex items-center gap-2">
+                                <CheckCircle className="w-4 h-4 text-green-500" />
+                                <span className="text-sm text-gray-700">API Integration</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <CheckCircle className="w-4 h-4 text-green-500" />
+                                <span className="text-sm text-gray-700">Real-time Sync</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <CheckCircle className="w-4 h-4 text-green-500" />
+                                <span className="text-sm text-gray-700">Custom Workflows</span>
+                              </div>
+                            </div>
+                            <div className="space-y-2">
+                              <div className="flex items-center gap-2">
+                                <CheckCircle className="w-4 h-4 text-green-500" />
+                                <span className="text-sm text-gray-700">Data Migration</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <CheckCircle className="w-4 h-4 text-green-500" />
+                                <span className="text-sm text-gray-700">Error Handling</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <CheckCircle className="w-4 h-4 text-green-500" />
+                                <span className="text-sm text-gray-700">24/7 Monitoring</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
                   {/* CTA */}
-                  <div className="text-center pt-4 border-t border-gray-100">
+                  <div className="text-center pt-6 border-t border-gray-100 mt-6">
                     <a
                       href="https://calendar.app.google/7JhbHhJhNG9fHj849"
                       target="_blank"
