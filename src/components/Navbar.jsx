@@ -37,7 +37,7 @@ export default function Navbar() {
       href: "#about", 
       description: "Our story & mission",
       dropdown: [
-        { label: "Our Story", href: "/story", description: "How we started" },
+        { label: "Our Story", href: "#about", description: "How we started" },
         { label: "Our Team", href: "/team", description: "Meet the experts" }
       ]
     },
@@ -142,7 +142,38 @@ export default function Navbar() {
                         href={item.href}
                         onClick={(e) => {
                           e.preventDefault();
-                          navigate(item.href);
+                          if (item.href.startsWith("#")) {
+                            // Handle internal page navigation (like #about)
+                            const sectionId = item.href.substring(1);
+                            if (location.pathname !== "/") {
+                              navigate("/");
+                              setTimeout(() => {
+                                const el = document.getElementById(sectionId);
+                                if (el) {
+                                  el.scrollIntoView({ behavior: "smooth" });
+                                  setActiveSection(sectionId);
+                                }
+                              }, 100);
+                            } else {
+                              const el = document.getElementById(sectionId);
+                              if (el) {
+                                el.scrollIntoView({ behavior: "smooth" });
+                                setActiveSection(sectionId);
+                              }
+                            }
+                          } else {
+                            // Handle external page navigation (like /team)
+                            navigate(item.href);
+                            // If navigating to team page, scroll to team section after navigation
+                            if (item.href === "/team") {
+                              setTimeout(() => {
+                                const el = document.getElementById("team");
+                                if (el) {
+                                  el.scrollIntoView({ behavior: "smooth" });
+                                }
+                              }, 100);
+                            }
+                          }
                           setMenuOpen(false);
                         }}
                         className="flex items-center justify-between p-3 rounded-lg hover:bg-blue-50/80 transition-all duration-200 group/item"
@@ -262,7 +293,38 @@ export default function Navbar() {
                               href={item.href}
                                                           onClick={(e) => {
                               e.preventDefault();
-                              navigate(item.href);
+                              if (item.href.startsWith("#")) {
+                                // Handle internal page navigation (like #about)
+                                const sectionId = item.href.substring(1);
+                                if (location.pathname !== "/") {
+                                  navigate("/");
+                                  setTimeout(() => {
+                                    const el = document.getElementById(sectionId);
+                                    if (el) {
+                                      el.scrollIntoView({ behavior: "smooth" });
+                                      setActiveSection(sectionId);
+                                    }
+                                  }, 100);
+                                } else {
+                                  const el = document.getElementById(sectionId);
+                                  if (el) {
+                                    el.scrollIntoView({ behavior: "smooth" });
+                                    setActiveSection(sectionId);
+                                  }
+                                }
+                              } else {
+                                // Handle external page navigation (like /team)
+                                navigate(item.href);
+                                // If navigating to team page, scroll to team section after navigation
+                                if (item.href === "/team") {
+                                  setTimeout(() => {
+                                    const el = document.getElementById("team");
+                                    if (el) {
+                                      el.scrollIntoView({ behavior: "smooth" });
+                                    }
+                                  }, 100);
+                                }
+                              }
                               setMenuOpen(false);
                             }}
                               className="block px-4 py-2 rounded-lg hover:bg-slate-50 transition-all duration-200"

@@ -34,7 +34,7 @@ export default function OurTeam() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div id="team" className="min-h-screen bg-white">
       {/* Header */}
       <div className="pt-32 pb-16">
         <div className="max-w-7xl mx-auto px-6">
