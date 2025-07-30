@@ -2,60 +2,38 @@
 
 import React, { useEffect, useRef } from 'react';
 import { CheckCircle, Users, Zap, Target } from 'lucide-react';
-import gsap from 'gsap';
 
 export default function AboutSection() {
   const sectionRef = useRef(null);
-  const statsRef = useRef(null);
-  const timelineRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Animate main content
-            gsap.fromTo(
-              entry.target.querySelectorAll('.about-fadein'),
-              { opacity: 0, y: 50 },
-              { 
-                opacity: 1, 
-                y: 0, 
-                duration: 0.8, 
-                stagger: 0.2,
-                ease: "power3.out"
-              }
-            );
+            // Add CSS animation classes
+            const fadeElements = entry.target.querySelectorAll('.about-fadein');
+            fadeElements.forEach((el, index) => {
+              setTimeout(() => {
+                el.classList.add('slide-up');
+              }, index * 200);
+            });
 
             // Animate stats
-            if (statsRef.current) {
-              gsap.fromTo(
-                statsRef.current.querySelectorAll('.stat-number'),
-                { opacity: 0, scale: 0.5 },
-                { 
-                  opacity: 1, 
-                  scale: 1, 
-                  duration: 0.6, 
-                  stagger: 0.1,
-                  ease: "back.out(1.7)"
-                }
-              );
-            }
+            const statNumbers = entry.target.querySelectorAll('.stat-number');
+            statNumbers.forEach((el, index) => {
+              setTimeout(() => {
+                el.classList.add('slide-up');
+              }, index * 100);
+            });
 
             // Animate timeline
-            if (timelineRef.current) {
-              gsap.fromTo(
-                timelineRef.current.querySelectorAll('.timeline-item'),
-                { opacity: 0, x: -50 },
-                { 
-                  opacity: 1, 
-                  x: 0, 
-                  duration: 0.8, 
-                  stagger: 0.3,
-                  ease: "power3.out"
-                }
-              );
-            }
+            const timelineItems = entry.target.querySelectorAll('.timeline-item');
+            timelineItems.forEach((el, index) => {
+              setTimeout(() => {
+                el.classList.add('slide-up');
+              }, index * 300);
+            });
           }
         });
       },
@@ -99,7 +77,7 @@ export default function AboutSection() {
         </div>
 
         {/* Stats Section */}
-        <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
           <div className="text-center">
             <div className="stat-number text-4xl md:text-5xl font-bold text-blue-600 mb-2">200+</div>
             <div className="text-sm text-slate-600 font-medium">Systems Built</div>
@@ -169,7 +147,7 @@ export default function AboutSection() {
           </div>
 
           {/* Right Column - Timeline */}
-          <div ref={timelineRef} className="about-fadein">
+          <div className="about-fadein">
             <h3 className="text-3xl font-bold text-slate-900 mb-8">
               Our Journey
             </h3>

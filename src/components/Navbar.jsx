@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import gsap from "gsap";
 
 export default function Navbar() {
   const navRef = useRef(null);
@@ -14,12 +13,10 @@ export default function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
-    // Enhanced entrance animation
-    gsap.fromTo(
-      navRef.current,
-      { y: -100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
-    );
+    // Add CSS animation class for entrance animation
+    if (navRef.current) {
+      navRef.current.classList.add('animate-fade-in-up');
+    }
   }, []);
 
   useEffect(() => {
