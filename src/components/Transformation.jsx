@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Zap, Settings, Link2, Smile } from 'lucide-react';
 
 const steps = [
@@ -35,12 +34,8 @@ export default function Transformation() {
     <section className="py-28 bg-gradient-to-br from-white via-blue-50 to-cyan-50" id="transformation">
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+        <div
+          className="text-center mb-16 animate-fade-in-up"
         >
           <h2 className="text-5xl md:text-6xl font-extrabold text-slate-900 mb-4 leading-tight">
             The Simplora Transformation
@@ -48,20 +43,17 @@ export default function Transformation() {
           <p className="text-xl md:text-2xl text-slate-600 max-w-2xl mx-auto font-light">
             Here's how we turn chaos into clarity, and disconnected tools into a seamless business engine.
           </p>
-        </motion.div>
+        </div>
 
         {/* Steps Journey */}
         <div className="relative flex flex-col md:flex-row items-center justify-between gap-12 md:gap-0 mb-20">
           {steps.map((step, idx) => {
             const Icon = step.icon;
             return (
-              <motion.div
+              <div
                 key={step.title}
-                initial={{ opacity: 0, y: 32 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: idx * 0.15 }}
-                viewport={{ once: true }}
-                className="relative z-10 bg-white rounded-2xl shadow-xl px-8 py-10 flex flex-col items-center text-center max-w-xs w-full mx-auto md:mx-0"
+                className="relative z-10 bg-white rounded-2xl shadow-xl px-8 py-10 flex flex-col items-center text-center max-w-xs w-full mx-auto md:mx-0 animate-fade-in-up"
+                style={{ animationDelay: `${idx * 0.15}s` }}
               >
                 <div className="mb-4">
                   <Icon className={`w-8 h-8 ${step.iconClass}`} />
@@ -76,7 +68,7 @@ export default function Transformation() {
                 {idx < steps.length - 1 && (
                   <div className="block md:hidden absolute bottom-0 left-1/2 w-1 h-8 bg-gradient-to-b from-blue-200 to-cyan-200 -translate-x-1/2 translate-y-full z-0" />
                 )}
-              </motion.div>
+              </div>
             );
           })}
         </div>

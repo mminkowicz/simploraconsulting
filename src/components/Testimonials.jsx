@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 
 // Client Logos
 import agudah from '../assets/Clients/agudah.png';
@@ -41,22 +40,15 @@ export default function Clients() {
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <motion.h2
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center text-base font-medium text-gray-500 uppercase tracking-widest mb-12"
+        <h2
+          className="text-center text-base font-medium text-gray-500 uppercase tracking-widest mb-12 animate-fade-in-up"
         >
           Trusted by innovative organizations
-        </motion.h2>
+        </h2>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-10 items-center justify-center"
+        <div
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-10 items-center justify-center animate-fade-in-up"
+          style={{ animationDelay: '0.2s' }}
         >
           {clientLogos.map((client, i) => (
             <div key={client.name} className="flex justify-center items-center p-4 relative z-10">
@@ -68,7 +60,7 @@ export default function Clients() {
               />
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

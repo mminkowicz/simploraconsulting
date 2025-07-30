@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Users, ArrowRight, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -46,11 +45,8 @@ export default function OurTeam() {
             Back to Home
           </Link>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+          <div
+            className="text-center mb-16 animate-fade-in-up"
           >
             <span className="inline-flex items-center px-4 py-2 text-sm font-semibold text-purple-700 bg-purple-100 rounded-full mb-6">
               <Users className="w-4 h-4 mr-2" />
@@ -62,17 +58,15 @@ export default function OurTeam() {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Meet the passionate experts behind Simplora who are dedicated to transforming your business operations.
             </p>
-          </motion.div>
+          </div>
 
           {/* Team Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {teamMembers.map((member, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+                className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="text-center mb-6">
                   <img
@@ -109,16 +103,14 @@ export default function OurTeam() {
                   Connect on LinkedIn
                   <ArrowRight className="w-4 h-4" />
                 </a>
-              </motion.div>
+              </div>
             ))}
           </div>
 
           {/* Team Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl p-8 md:p-12 text-white text-center"
+          <div
+            className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl p-8 md:p-12 text-white text-center animate-fade-in-up"
+            style={{ animationDelay: '0.3s' }}
           >
             <h3 className="text-2xl md:text-3xl font-bold mb-8">
               Why Choose Our Team?
@@ -141,7 +133,7 @@ export default function OurTeam() {
                 <div className="text-blue-100 text-sm">Support Available</div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>
