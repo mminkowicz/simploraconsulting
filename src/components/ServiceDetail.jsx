@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, CheckCircle, Clock, Users, Zap, Target } from 'lucide-react';
+
+import { ArrowLeft, CheckCircle, Zap } from 'lucide-react';
 
 const serviceDetails = {
   customization: {
@@ -434,11 +434,8 @@ export default function ServiceDetail() {
             Back to Services
           </Link>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+          <div
+            className="text-center mb-16 animate-fade-in-up"
           >
             <div className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-r ${service.gradient} text-white text-3xl mb-6`}>
               {service.icon}
@@ -449,46 +446,37 @@ export default function ServiceDetail() {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               {service.subtitle}
             </p>
-          </motion.div>
+          </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg text-gray-700 text-center max-w-4xl mx-auto mb-16 leading-relaxed"
+          <p
+            className="text-lg text-gray-700 text-center max-w-4xl mx-auto mb-16 leading-relaxed animate-fade-in-up"
+            style={{ animationDelay: '0.2s' }}
           >
             {service.description}
-          </motion.p>
+          </p>
         </div>
       </div>
 
       {/* Features */}
       <div className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
+          <div
+            className="text-center mb-12 animate-fade-in-up"
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-4">What's Included</h2>
             <p className="text-lg text-gray-600">Comprehensive features to transform your business</p>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {service.features.map((feature, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="flex items-start gap-3 p-6 bg-gray-50 rounded-xl"
+                className="flex items-start gap-3 p-6 bg-gray-50 rounded-xl animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <CheckCircle className="w-6 h-6 text-green-500 mt-0.5 flex-shrink-0" />
                 <span className="text-gray-700">{feature}</span>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -497,33 +485,26 @@ export default function ServiceDetail() {
       {/* Process */}
       <div className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
+          <div
+            className="text-center mb-12 animate-fade-in-up"
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Process</h2>
             <p className="text-lg text-gray-600">How we deliver results for your business</p>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {service.process.map((step, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="text-center"
+                className="text-center animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r ${service.gradient} flex items-center justify-center text-white font-bold text-lg`}>
                   {step.step}
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">{step.title}</h3>
                 <p className="text-gray-600">{step.description}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -532,32 +513,25 @@ export default function ServiceDetail() {
       {/* Benefits */}
       <div className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
+          <div
+            className="text-center mb-12 animate-fade-in-up"
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Key Benefits</h2>
             <p className="text-lg text-gray-600">What you can expect from our {service.title.toLowerCase()} service</p>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {service.benefits.map((benefit, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="flex items-start gap-4 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl"
+                className="flex items-start gap-4 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className={`w-8 h-8 rounded-full bg-gradient-to-r ${service.gradient} flex items-center justify-center text-white text-sm font-bold flex-shrink-0`}>
                   {index + 1}
                 </div>
                 <span className="text-gray-700 font-medium">{benefit}</span>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -566,29 +540,22 @@ export default function ServiceDetail() {
       {/* Platforms */}
       <div className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
+          <div
+            className="text-center mb-12 animate-fade-in-up"
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Platforms We Work With</h2>
             <p className="text-lg text-gray-600">Compatible with your existing tools and workflows</p>
-          </motion.div>
+          </div>
 
           <div className="flex flex-wrap justify-center gap-4">
             {service.platforms.map((platform, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="px-6 py-3 bg-white rounded-full shadow-sm border border-gray-200"
+                className="px-6 py-3 bg-white rounded-full shadow-sm border border-gray-200 animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <span className="text-gray-700 font-medium">{platform}</span>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -597,11 +564,8 @@ export default function ServiceDetail() {
       {/* CTA */}
       <div className="py-16 bg-gradient-to-r from-blue-600 to-cyan-600">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+          <div
+            className="animate-fade-in-up"
           >
             <h2 className="text-3xl font-bold text-white mb-4">
               Ready to Get Started?
@@ -616,7 +580,7 @@ export default function ServiceDetail() {
               Schedule a Consultation
               <Zap className="w-5 h-5" />
             </a>
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>
